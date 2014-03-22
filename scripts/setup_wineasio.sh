@@ -22,7 +22,7 @@ if [ -d "$appdir" ]; then
 	if [ -d "$appdir/.winelib" ]; then
 		echo "Installing WineAsio to the Reaper installation dir."
 		
-		cp "$tempdir/wineasio-0.7.4.dll.so" "$appdir/.winelib/wineasio.dll.so"
+		cp "$tempdir/wineasio-0.8.0.dll.so" "$appdir/.winelib/wineasio.dll.so"
 		
 		env HOME="$appdir" regsvr32 "$appdir/.winelib/wineasio.dll.so"
 		# If it failed, ask permission to install WineAsio to /usr/lib/wine

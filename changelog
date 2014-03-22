@@ -1,3 +1,9 @@
+0.84
+----
+ * Fixed:   LinReaper can once again download the latest version of Reaper
+            and works with the newer versions of Wine lacking wineprefixcreate.
+ * Updated: wineasio updated to version 0.8.0.
+
 0.83
 ----
  * Fixed:   LinReaper now works even if there are no versions of Reaper

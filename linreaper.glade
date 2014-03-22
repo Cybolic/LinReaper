@@ -408,7 +408,9 @@ If you selected not to install menu shortcuts, you can launch Reaper from the in
                     <property name="xalign">0</property>
                     <property name="xpad">12</property>
                     <property name="ypad">6</property>
-                    <property name="label" translatable="yes">&lt;i&gt;Thank you for using this installer, please report any issues you might have encountered either on the Reaper forums or directly to &amp;lt;cybolic@gmail.com&amp;gt;.&lt;/i&gt;</property>
+                    <property name="label" translatable="yes">&lt;i&gt;Thank you for using this installer, please report any issues you might have encountered either on the Reaper forums or directly to &amp;lt;cybolic@gmail.com&amp;gt;.&lt;/i&gt;
+
+Also, if you haven't already, please review Reaper's license located in it's installation folder.</property>
                     <property name="use_markup">True</property>
                     <property name="wrap">True</property>
                     <property name="selectable">True</property>
