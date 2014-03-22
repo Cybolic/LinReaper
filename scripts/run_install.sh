@@ -14,7 +14,7 @@ if [ ! -d "$1" ]; then
 	mkdir "$1"
 	echo "."
 else
-	echo "Install directory already exists."
+	echo "Install directory \"$1\" already exists."
 fi
 appdir="$(cd "$1"; pwd)"
 
@@ -63,13 +63,23 @@ APPDATA="$(pathfromreg "APPDATA")"
 PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
 USERPROFILE="$PROFILESDIR/$USER"
 
+# Debug stuff
+#echo $ProgramFiles
+#echo $winsysdir
+#echo $APPDATA
+#echo $PROFILESDIR
+#echo $USERPROFILE
+#exit
 
 runinstall=1
 # If 7zip is installed, bypass the installer and install Reaper ourselves
 if 7za --help &> /dev/null ; then
 	echo "7zip installed, bypassing installer"
 	echo "Installing Reaper into it"
-	7z x -y -o"$ProgramFiles"/REAPER "$installexe"
+	# Debug stuff
+	#echo "7z x -y -o"$ProgramFiles/REAPER" "$installexe""
+	#exit
+	7z x -y -o"$ProgramFiles/REAPER" "$installexe"
 	if [ "$?" != 0 ]; then
 		echo "Extracting from exe failed, running installer instead"
 	else
@@ -123,7 +133,7 @@ if [ -d "$appdir/.wine" ]; then
 		fi
 		cp "$tempdir/mimetype.xml" "$HOME/.local/share/mime/packages/reaper.xml"
 		update-mime-database "$HOME/.local/share/mime"
-		update-desktop-database "$HOME/.local/share"
+		#update-desktop-database "$HOME/.local/share" # This loops over Wine's Z: link and gets sad :(
 		update-desktop-database "$HOME/.local/share/applications"
 		# Make C:\Windows\Profiles read/writable for everyone, so all users can save their settings.
 		# Remember that the Profiles dir will not contain important directories, only symlinks to

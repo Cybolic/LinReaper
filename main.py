@@ -172,6 +172,8 @@ def do_error():
 	main.widgets['button_next'].connect("clicked", main._exit)
 	
 def run(command, arguments, finished_function, error_function):
+	#print command, arguments, finished_function, error_function
+	#return
 	thread = threading.Thread(target=run_process, args=[command, arguments, finished_function, error_function])
 	thread.start()
 
