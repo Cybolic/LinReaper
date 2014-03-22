@@ -16,9 +16,13 @@ print_help() {
 	exit 0
 }
 
+SELFTEST=0
 case "$1" in
 	-h|--help|-help)
 		print_help
+		;;
+	-s|--selftest|-selftest)
+		SELFTEST=1
 		;;
 esac
 
@@ -42,21 +46,56 @@ export WINEPREFIX
 WINEDEBUG="fixme-all"
 export WINEDEBUG
 
-# Get the Windows paths from registry since they are different according to locale
-ProgramFiles="$(grep '"ProgramFiles"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
-winsysdir="$(grep '"winsysdir"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
-winsysdir="$("$appdir"/.winepath.sh -u "$winsysdir")"
-APPDATA="$(grep '"APPDATA"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
-APPDATA="$(winepath -u "$APPDATA")"
-winsysdir="$("$appdir"/.winepath.sh -u "$APPDATA")"
+#
+# Underscore prefixed variables are only used in this block to determine the non-underscored ones
+#
 
-PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
-APPDATANAME="$(basename "$APPDATA")"
+ProgramFiles='C:\\Program Files'
+_PROGRAMFILES="$WINEPREFIX/drive_c/Program Files"
+_winsysdir="$WINEPREFIX/drive_c/windows/profiles/$USERNAME/Application Data"
+_PROFILESDIR="$WINEPREFIX/drive_c/windows/profiles"
+_APPDATA="$WINEPREFIX/drive_c/windows/profiles/$USERNAME/Application Data"
 
-USERPROFILE="$PROFILESDIR/$USER"
-APPDATA="$USERPROFILE/$APPDATANAME"
+if [ -d "$_PROGRAMFILES" ] || \
+   [ -d "$_winsysdir" ] || \
+   [ -d "$_PROFILESDIR" ] || \
+   [ -d "$_APPDATA" ]; then
+	APPDATA=$_APPDATA
+else
+	# Get the Windows paths from registry since they are different according to locale
+	ProgramFiles="$(grep '"ProgramFiles"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+	if [[ -z $(echo $ProgramFiles) ]]; then
+		ProgramFiles="$(grep '"ProgramFilesDir"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+		if [[ -z $(echo $ProgramFiles) ]]; then
+			ProgramFiles='C:\Program Files'
+			echo "WARNING: The system registry didn't contain the path to ProgramFiles, defaulting to \""$ProgramFiles'".'
+		fi
+	fi
+	_winsysdir="$(grep '"winsysdir"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+	_winsysdir="$("$appdir"/.winepath.sh -u "$_winsysdir")"
+	_APPDATA="$(grep '"APPDATA"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+	_LOCALAPPDATA="$(grep '"LOCALAPPDATA"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+	_APPDATA="$(winepath -u "$_APPDATA")"
+	_LOCALAPPDATA="$(winepath -u "$_LOCALAPPDATA")"
+	_winsysdir="$("$appdir"/.winepath.sh -u "$_APPDATA")"
 
+	_PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
+	if [[ "$_PROFILESDIR" == "." ]]; then
+		_PROFILESDIR="$(dirname "$(dirname "`dirname "$_LOCALAPPDATA"`")")"
+	fi
+	_APPDATANAME="$(basename "$_APPDATA")"
 
+	_USERPROFILE="$PROFILESDIR/$USER"
+	APPDATA="$_USERPROFILE/$_APPDATANAME"
+fi
+
+if [[ $SELFTEST == 1 ]]; then
+	echo "ProgramFiles: "$ProgramFiles
+	echo "winsysdir: "$_winsysdir
+	echo "PROFILESDIR: "$_PROFILESDIR
+	echo "APPDATA: "$APPDATA
+	exit
+fi
 args="$@"
 
 convert_path_to_win() {

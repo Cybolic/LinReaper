@@ -2,7 +2,7 @@
 
 # If we were not given a URL, find it ourselves
 if [ -z "$1" ]; then
-	url="$(wget -qO - 'http://reaper.fm/download.php' | grep -ie '-install.exe">Windows (' | grep -iEoe '".*.exe"')"
+	url="$(wget -qO - 'http://reaper.fm/download.php' | grep -ie '-install.exe">' | grep -iEoe '".*.exe"' | grep -v 'x64')"
 	url="${url:1:$(expr ${#url}-2)}"
 	# If http:// (or ftp:// or similar) is missing from url, add it
 	if [ -z $(expr "$url" : '.*\(://\)') ]; then
