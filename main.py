@@ -229,30 +229,33 @@ def get_version_urls():
 	reaperlisting = "\n".join( reaperlisting.readlines() )
 	
 	# Split the HTML so it only contains the table rows with the files
-	reaperlisting = filter(len, reaperlisting.split('<hr></th></tr>')[1].split("\n")[:-2])
+	try:
+		reaperlisting = filter(len, reaperlisting.split('<hr></th></tr>')[1].split("\n")[:-2])
 	
-	# Filter through the table rows, extracting the data we need
-	versions = {}
-	for row in reaperlisting[1:]:
-		url = baseurl + row.split('<a href="')[1].split('">')[0].lower()
-		# Skip if this version is for x64, as Wine can't handle it yet - also discard zip, dll and dmg files
-		if 'x64' in url or url.endswith('.zip') or url.endswith('.dll') or url.endswith('.dmg'):
-			continue
-		date = row.split('<td align="right">')[1].split('</td>')[0].strip()
-		dateint = int( ''.join(map(lambda i: "%02d" % i, time.strptime(date, "%d-%b-%Y %H:%M")[:3])) )
-		try:
-			name = "Version 2." + url.split('/')[-1].split('reaper2')[1].split('-install')[0]
-			if '_' in name:
-				name = name.split('_')[0]+" ("+name.split('_')[1]+")"
-		except:
-			print "Error, couldn't parse "+url
-		versions[dateint] = {'url':url, 'date':date, 'name':name}
-	# Get the dates of the versions and sort them
-	dates = versions.keys()
-	dates.sort()
-	# Return the versions as a sorted list
-	versions = [ versions[i] for i in dates ]
-	versions.reverse()
+		# Filter through the table rows, extracting the data we need
+		versions = {}
+		for row in reaperlisting[1:]:
+			url = baseurl + row.split('<a href="')[1].split('">')[0].lower()
+			# Skip if this version is for x64, as Wine can't handle it yet - also discard zip, dll and dmg files
+			if 'x64' in url or url.endswith('.zip') or url.endswith('.dll') or url.endswith('.dmg'):
+				continue
+			date = row.split('<td align="right">')[1].split('</td>')[0].strip()
+			dateint = int( ''.join(map(lambda i: "%02d" % i, time.strptime(date, "%d-%b-%Y %H:%M")[:3])) )
+			try:
+				name = "Version 2." + url.split('/')[-1].split('reaper2')[1].split('-install')[0]
+				if '_' in name:
+					name = name.split('_')[0]+" ("+name.split('_')[1]+")"
+			except:
+				print "Error, couldn't parse "+url
+			versions[dateint] = {'url':url, 'date':date, 'name':name}
+		# Get the dates of the versions and sort them
+		dates = versions.keys()
+		dates.sort()
+		# Return the versions as a sorted list
+		versions = [ versions[i] for i in dates ]
+		versions.reverse()
+	except IndexError:
+		versions = []
 	return versions
 
 

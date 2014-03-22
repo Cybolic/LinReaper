@@ -22,7 +22,7 @@ check_home_config() {
 		# Create the default vst directory
 		mkdir -p "$HOME/.config/$configname/vst"
 		
-		ln -s "$HOME/.config/reaper" "$APPDATA/REAPER"
+		ln -sf "$HOME/.config/reaper" "$APPDATA/REAPER"
 	fi
 }
 

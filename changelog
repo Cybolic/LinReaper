@@ -1,3 +1,8 @@
+0.83
+----
+ * Fixed:   LinReaper now works even if there are no versions of Reaper
+            available for download.
+
 0.82
 ----
  * New:     The LinReaper VSTTool has been replaced by a new multi-tool.
@@ -7,7 +12,7 @@
             run Reaper with the options normally installed as extra
             menu shortcuts on Windows and configure and manage LinReapers
             Wine installation.
-  * Fixed:  Running Reaper from commandline with filenames containing
+ * Fixed:   Running Reaper from commandline with filenames containing
             spaces now works.
 
 0.81
