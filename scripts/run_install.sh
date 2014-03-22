@@ -96,6 +96,7 @@ if [ -d "$appdir/.wine" ]; then
 	chmod +x "$appdir/reaper.sh"
 	cp "$tempdir/REAPER.ini.sh" "$appdir/.REAPER.ini.default.sh"
 
+	cp "$tempdir/winepath.sh" "$appdir/.winepath.sh"
 	cp "$tempdir/conftool.sh" "$appdir/.conftool.sh"
 	cp "$tempdir/vst_installer.sh" "$appdir/.vst_installer.sh"
 	cp "$tempdir/conf.glade" "$appdir/.conf.glade"
