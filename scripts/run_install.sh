@@ -2,7 +2,11 @@
 
 # Convert relative to absolute paths
 tempdir="$(cd "`dirname "$0"`"; pwd)"
-installexe="$2"
+if [ -z "$2" ]; then
+	installexe="/tmp/linreaper-reaper-install.exe"
+else
+	installexe="$2"
+fi
 
 if [ ! -d "$1" ]; then
 	echo -n "Creating directory $1"
@@ -36,7 +40,8 @@ WINEPREFIX="$appdir/.wine"
 export WINEPREFIX
 
 echo "Creating Wine directory"
-env HOME="$appdir" wineprefixcreate
+#env HOME="$appdir" wineprefixcreate
+env HOME="$appdir" regedit /E /tmp/.linreaper_prefix_created 'HKEY_CURRENT_USER\Software\Wine'
 
 echo -n "Waiting for registry files to be created..."
 while [ ! -f "$appdir/.wine/system.reg" ]; do

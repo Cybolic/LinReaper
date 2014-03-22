@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import os, gtk, gobject, gtk.glade, subprocess, sys, threading, urllib, time, locale
+import os, gtk, gobject, gtk.glade, subprocess, sys, threading, urllib, time, locale, re
 
 class Main:
 	def _exit(self, *args):
@@ -23,32 +23,17 @@ class Main:
 		self.widgets = CreateWidgets(self)
 		icons = map(lambda i: gtk.gdk.pixbuf_new_from_file("./scripts/gnome/"+str(i)+"x"+str(i)+"/apps/reaper.png"), [16,32,48,96,128,256])
 		self.widgets['window'].set_icon_list(*icons)
-		# Get the list of Reaper versions
-		self.versions = get_version_urls()
-		# Setup the listview
-		listview = self.widgets['treeview_version']
-		column = gtk.TreeViewColumn("Version", gtk.CellRendererText(), text=0)
-		column.set_resizable(True)
-		column.set_sort_column_id(0)
-		listview.append_column(column)
-		column = gtk.TreeViewColumn("Date", gtk.CellRendererText(), text=1)
-		column.set_resizable(True)
-		column.set_sort_column_id(1)
-		listview.append_column(column)
-		liststore = gtk.ListStore(str, str)
-		listview.set_model(liststore)
-		# Fill the listview with the versions
-		for i in self.versions:
-			liststore.append([ i['name'], i['date'] ])
+		self.widgets['image-icon'].set_from_pixbuf(icons[1])
 		
+		# Select the home folder as the base for choosing the Reaper installer
+		self.widgets['filechooserbutton-installer'].set_current_folder(os.environ['HOME'])
 		# Select the option to install locally
-		self.widgets['filechooserbutton_local'].set_current_folder(self.default_installpath_local)
-		self.widgets['radiobutton_location_local'].set_active(self.option_install_local)
+		self.widgets['filechooserbutton-path'].set_current_folder(self.default_installpath_local)
 		
 		if len(sys.argv) > 1:
 			self.reaperfilelocal = os.path.abspath(sys.argv[1])
-			self.widgets['filechooserbutton_installer'].set_filename(self.reaperfilelocal)
-			self.widgets['check_local_installer'].set_active(True)
+			self.widgets['filechooserbutton-installer'].set_filename(self.reaperfilelocal)
+			self.widgets['radiobutton-installer-file'].set_active(True)
 			self.select_local_installer(True)
 		
 		# Set the default install options
@@ -73,16 +58,14 @@ class Main:
 			self.local_installer = button.get_active()
 		
 		if self.local_installer:
-			self.widgets['filechooserbutton_installer'].set_sensitive(True)
-			self.widgets['scrolledwindow1'].set_sensitive(False)
+			self.widgets['filechooserbutton-installer'].set_sensitive(True)
 			self.widgets['button_next'].set_sensitive(False)
 			if self.reaperfilelocal != None:
 				self.widgets['button_next'].set_sensitive(True)
 			else:
 				self.widgets['button_next'].set_sensitive(False)
 		else:
-			self.widgets['filechooserbutton_installer'].set_sensitive(False)
-			self.widgets['scrolledwindow1'].set_sensitive(True)
+			self.widgets['filechooserbutton-installer'].set_sensitive(False)
 			self.widgets['button_next'].set_sensitive(True)
 	
 	def set_local_installer(self, filechooser):
@@ -97,16 +80,16 @@ class Main:
 		# If globally
 		if button.get_active():
 			self.installpath = self.default_installpath_global
-			self.widgets['filechooserbutton_local'].set_sensitive(False)
+			self.widgets['filechooserbutton-installer'].set_sensitive(False)
 		else:
-			self.widgets['filechooserbutton_local'].set_sensitive(True)
-			self.installpath = (self.widgets['filechooserbutton_local'].get_filename() or self.default_installpath_local) + '/' + ( self.widgets['entry_install_local'].get_text() or "reaper")
+			self.widgets['filechooserbutton-installer'].set_sensitive(True)
+			self.installpath = (self.widgets['filechooserbutton-installer'].get_filename() or self.default_installpath_local) + '/' + ( self.widgets['entry_install_local'].get_text() or "reaper")
 	
 	def select_local_path(self, filechooser):
 		self.installpath = filechooser.get_current_folder() + '/' + self.widgets['entry_install_local'].get_text()
 	
 	def change_installation_path(self, entry):
-		self.installpath = self.widgets['filechooserbutton_local'].get_filename() + '/' + entry.get_text()
+		self.installpath = self.widgets['filechooserbutton-installer'].get_filename() + '/' + entry.get_text()
 	
 	def select_shortcuts(self, button):
 		self.option_shortcuts = button.get_active()
@@ -118,8 +101,7 @@ class Main:
 	def next(self, button):
 		self.widgets['notebook'].next_page()
 		if self.widgets['notebook'].get_current_page() == 1:
-			if len(self.versions) and self.reaperfilelocal == None:
-				self.widgets['treeview_version'].set_cursor((0,0))
+			if self.reaperfilelocal == None:
 				self.select_local_installer(False)
 			else:
 				self.selected_version = "local"
@@ -134,20 +116,26 @@ def do_install():
 	main.widgets['button_next'].set_sensitive(False)
 	
 	# If set to use local installer
-	if main.widgets['check_local_installer'].get_active() == True:
+	#if main.widgets['check_local_installer'].get_active() is True:
+	if main.local_installer is True:
 		print "Using local Reaper installer"
 		main.reaperfile = main.reaperfilelocal
 		do_install_run()
 	else:
 		print "Downloading Reaper"
 		main.widgets['label_install'].set_text("Downloading Reaper...")
-		main.reaperfile = "/tmp/"+os.path.basename(main.selected_version['url'])
-		run(main.rundir+"/scripts/get_reaper.sh", [main.selected_version['url'], main.reaperfile], do_install_run, do_error)
+		#main.reaperfile = "/tmp/"+os.path.basename(main.selected_version['url'])
+		#main.reaperurl = get_version_url()
+		#main.reaperfile = "/tmp/"+os.path.basename(main.reaperurl)
+		run(main.rundir+"/scripts/get_reaper.sh", [], do_install_run, do_error)
 
 def do_install_run():
 	#print "Create Wine setup and run the installer"
 	main.widgets['label_install'].set_text("Creating Wine setup and running the installer\n(just accept the defaults and don't run Reaper if asked)...")
-	run(main.rundir+"/scripts/run_install.sh", [main.installpath, main.reaperfile], do_install_setup_config, do_error)
+	if hasattr(main, 'reaperfile') and len(main.reaperfile):
+		run(main.rundir+"/scripts/run_install.sh", [main.installpath, main.reaperfile], do_install_setup_config, do_error)
+	else:
+		run(main.rundir+"/scripts/run_install.sh", [main.installpath], do_install_setup_config, do_error)
 
 def do_install_setup_config():
 	#print "Setup installation"
@@ -221,6 +209,18 @@ def run_process(command, arguments, finished_function, error_function):
 	else:
 		finished_function()
 
+
+def get_version_url():
+    baseurl = 'http://reaper.fm/download.php'
+    url = urllib.urlopen(baseurl)
+    url = url.read()
+    url = re.search('<a href="([^"]*reaper[\d\.\-]+-install.exe)">Windows \(', url).groups()[0]
+    if url:
+        if '://' not in url[:8]:
+            url = 'http://reaper.fm/'+url
+        return url
+    else:
+        return None
 
 def get_version_urls():
 	baseurl = 'http://reaper.fm/files/2.x/'
