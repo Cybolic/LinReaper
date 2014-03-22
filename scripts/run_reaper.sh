@@ -3,6 +3,25 @@
 # Convert relative to absolute path
 appdir="$(cd "`dirname "$0"`"; pwd)"
 
+print_help() {
+	echo "Usage: `basename "$0"` [OPTION...] [FILE.rpp | FILE.wav]"
+	echo -e "\nOptions:"
+	echo -e "  -v, --version \t\t\t\tPrint the installed version number"
+	echo -e "  -a, --audiocfg \t\t\t\tShow the audio configuration settings"
+	echo -e "  -c, --cfgfile FILE \t\t\t\tLoad the specified config file"
+	echo -e "  -n, --new \t\t\t\t\tOpen a new project, use FILE if specified"
+	echo -e "  -r, --renderproject FILE \t\t\tRender the specified project"
+	echo -e "  -t, --template FILE [-s, -saveas FILE]\tOpen a new project, using FILE as template"
+	echo -e "  \t\t\t\t\t\t- optionally saving the new project as FILE"
+	exit 0
+}
+
+case "$1" in
+	-h|--help|-help)
+		print_help
+		;;
+esac
+
 if [ -n "$LD_LIBRARY_PATH" ]; then
 	LD_LIBRARY_PATH="$appdir/.winelib:$LD_LIBRARY_PATH"
 else
@@ -24,12 +43,12 @@ WINEDEBUG="fixme-all"
 export WINEDEBUG
 
 # Get the Windows paths from registry since they are different according to locale
-eval ProgramFiles="$(less "$appdir/.wine/system.reg" | grep '"ProgramFiles"=' | cut -d= -f2-)"
-#ProgramFiles="$(winepath -u "$ProgramFiles")"
-eval winsysdir="$(less "$appdir/.wine/system.reg" | grep '"winsysdir"=' | cut -d= -f2-)"
-winsysdir="$(winepath -u "$winsysdir")"
-eval APPDATA="$(less "$appdir/.wine/system.reg" | grep '"APPDATA"=' | cut -d= -f2-)"
+ProgramFiles="$(grep '"ProgramFiles"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+winsysdir="$(grep '"winsysdir"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
+winsysdir="$("$appdir"/.winepath.sh -u "$winsysdir")"
+APPDATA="$(grep '"APPDATA"=' "$appdir/.wine/system.reg" | cut -d\" -f4- | cut -d\" -f1)"
 APPDATA="$(winepath -u "$APPDATA")"
+winsysdir="$("$appdir"/.winepath.sh -u "$APPDATA")"
 
 PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
 APPDATANAME="$(basename "$APPDATA")"
@@ -49,28 +68,63 @@ convert_path_to_win() {
 	fi
 }
 
+print_version() {
+	cat "$(winepath -u "$ProgramFiles"'\\REAPER')/whatsnew.txt" | cut -s -d\  -f1 | head -n1 | cut -dv -f2-
+}
+
+print_latest_changelog() {
+	wget -qO - 'http://reaper.fm/whatsnew.txt'
+}
+
+print_latest_version() {
+	print_latest_changelog | cut -s -d\  -f1 | head -n1 | cut -dv -f2-
+}
+
+check_for_new_version() {
+	check=true
+	# If there's a config file
+	if [ -e "$APPDATA/REAPER/REAPER.ini" ]; then
+		echo "Config exists"
+		# and it has the option for checking for new version
+		setting="$(cat "$APPDATA/REAPER/REAPER.ini" | grep -oE '^verchk=([01])' | cut -d= -f2)"
+		# and that options says "don't check", then don't
+		test "x$setting" = "x0" && check=false
+	fi
+
+	if $check; then
+		if [[ "$(print_latest_version)" > "$(print_version)" ]]; then
+			echo "Update!"
+		fi
+	fi
+}
+
 args=""
 
 # If Reaper hasn't been set-up, do it
 if [ ! -e "$HOME/.config/$(cat "$appdir/.configuration_dir")" ]; then
 	if [ ! -e "$APPDATA/REAPER/REAPER.ini" ]; then
-		"$appdata/.update_config.sh"
-		
-		test $# -eq 0 && args="'$ProgramFiles\REAPER\BradSucks_MakingMeNervous\BradSucks_MakingMeNervous.RPP'"
+		"$appdir/.update_config.sh"
+
+		test $# -eq 0 && args="'$ProgramFiles\\REAPER\\BradSucks_MakingMeNervous\\BradSucks_MakingMeNervous.RPP'"
 	fi
 fi
+
 
 while [ $# -gt 0 ]; do
 	case "$1" in
 		-h|--help|-help)
-			echo "Usage: `basename "$0"` [OPTION...] [FILE.rpp | FILE.wav]"
-			echo -e "\nOptions:"
-			echo -e "  -a, --audiocfg \t\t\t\tShow the audio configuration settings"
-			echo -e "  -c, --cfgfile FILE \t\t\t\tLoad the specified config file"
-			echo -e "  -n, --new \t\t\t\t\tOpen a new project, use FILE if specified"
-			echo -e "  -r, --renderproject FILE \t\t\tRender the specified project"
-			echo -e "  -t, --template FILE [-s, -saveas FILE]\tOpen a new project, using FILE as template"
-			echo -e "  \t\t\t\t\t\t- optionally saving the new project as FILE"
+			print_help
+			;;
+		-v|--version)
+			print_version
+			exit 0
+			;;
+		-l|--latest-version)
+			print_latest_version
+			exit 0
+			;;
+		--check-version)
+			check_for_new_version
 			exit 0
 			;;
 		-a|--audiocfg)
@@ -147,4 +201,7 @@ done
 # Remove trailing space
 #args="${args:0:`expr length "$args" - 1`}"
 
+#if [ $("$appdir/.update_checker.py"; echo $?) == 255 ]; then
+
 eval "wine '$ProgramFiles\REAPER\Reaper.exe' $args"
+
