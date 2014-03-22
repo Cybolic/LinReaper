@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Convert relative to absolute path
 appdir="$(cd "$1"; pwd)"
@@ -44,3 +44,7 @@ if [ -e "$HOME/.local/share/applications/VSTTool.desktop" ]; then
 fi
 
 update-desktop-database "$HOME/.local/share/applications"
+# Update OpenBox menu as well, if running
+if [ ! -z "$(ps -A | grep openbox)" ]; then
+	openbox --reconfigure &
+fi
