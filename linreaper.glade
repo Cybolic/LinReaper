@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--*- mode: xml -*-->
+<glade-interface>
+  <widget class="GtkWindow" id="window">
+    <property name="visible">True</property>
+    <property name="title" translatable="yes">Reaper installation for Linux</property>
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <signal name="destroy" handler="_exit"/>
+    <signal name="destroy_event" handler="_exit"/>
+    <child>
+      <widget class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <child>
+          <widget class="GtkNotebook" id="notebook">
+            <property name="visible">True</property>
+            <property name="show_tabs">False</property>
+            <child>
+              <widget class="GtkVBox" id="vbox2">
+                <property name="visible">True</property>
+                <child>
+                  <widget class="GtkLabel" id="label_intro_headline">
+                    <property name="visible">True</property>
+                    <property name="xpad">6</property>
+                    <property name="ypad">6</property>
+                    <property name="label" translatable="yes">&lt;big&gt;&lt;big&gt;Welcome to the Reaper installation program for Linux.&lt;/big&gt;&lt;/big&gt;</property>
+                    <property name="use_markup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkLabel" id="label_intro_text">
+                    <property name="visible">True</property>
+                    <property name="xpad">12</property>
+                    <property name="ypad">6</property>
+                    <property name="label" translatable="yes">Please remember that this is an unofficial product, and Cockos
+should not be bothered with issues regarding this use of this program.
+
+Also note that this program requires a working internet connection.
+
+Cheers,
+&lt;i&gt;Christian Dannie Storgaard (Cybolic)&lt;/i&gt;</property>
+                    <property name="use_markup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Intro</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVBox" id="vbox3">
+                <property name="visible">True</property>
+                <property name="border_width">6</property>
+                <property name="spacing">12</property>
+                <child>
+                  <widget class="GtkFrame" id="frame1">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkAlignment" id="alignment1">
+                        <property name="visible">True</property>
+                        <property name="top_padding">3</property>
+                        <property name="left_padding">18</property>
+                        <child>
+                          <widget class="GtkVBox" id="vbox9">
+                            <property name="visible">True</property>
+                            <child>
+                              <widget class="GtkScrolledWindow" id="scrolledwindow1">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="shadow_type">GTK_SHADOW_IN</property>
+                                <child>
+                                  <widget class="GtkTreeView" id="treeview_version">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <signal name="cursor_changed" handler="select_version"/>
+                                  </widget>
+                                </child>
+                              </widget>
+                            </child>
+                            <child>
+                              <widget class="GtkHBox" id="hbox_local_installer">
+                                <property name="visible">True</property>
+                                <child>
+                                  <widget class="GtkCheckButton" id="check_local_installer">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="label" translatable="yes">One of my choosing: </property>
+                                    <property name="response_id">0</property>
+                                    <property name="draw_indicator">True</property>
+                                    <signal name="toggled" handler="select_local_installer"/>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="GtkFileChooserButton" id="filechooserbutton_installer">
+                                    <property name="visible">True</property>
+                                    <property name="preview_widget_active">False</property>
+                                    <property name="title" translatable="yes">Select A Reaper Install Exe</property>
+                                    <signal name="file_set" handler="set_local_installer"/>
+                                  </widget>
+                                  <packing>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label8">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Which version would you like?&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkFrame" id="frame2">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkAlignment" id="alignment2">
+                        <property name="visible">True</property>
+                        <property name="top_padding">3</property>
+                        <property name="left_padding">18</property>
+                        <child>
+                          <widget class="GtkVBox" id="vbox4">
+                            <property name="visible">True</property>
+                            <child>
+                              <widget class="GtkRadioButton" id="radiobutton_location">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="label" translatable="yes">Globally (/usr/local/reaper)</property>
+                                <property name="use_underline">True</property>
+                                <property name="response_id">0</property>
+                                <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="select_installation_path"/>
+                              </widget>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkRadioButton" id="radiobutton_location_local">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="label" translatable="yes">Locally</property>
+                                <property name="use_underline">True</property>
+                                <property name="response_id">0</property>
+                                <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
+                                <property name="group">radiobutton_location</property>
+                              </widget>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkAlignment" id="alignment4">
+                                <property name="visible">True</property>
+                                <property name="left_padding">18</property>
+                                <child>
+                                  <widget class="GtkHBox" id="hbox1">
+                                    <property name="visible">True</property>
+                                    <child>
+                                      <widget class="GtkFileChooserButton" id="filechooserbutton_local">
+                                        <property name="visible">True</property>
+                                        <property name="sensitive">False</property>
+                                        <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+                                        <property name="title" translatable="yes">Select where the "reaper" directory should be created</property>
+                                        <signal name="current_folder_changed" handler="select_local_path"/>
+                                      </widget>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkEntry" id="entry_install_local">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="text" translatable="yes">reaper</property>
+                                        <signal name="changed" handler="change_installation_path"/>
+                                      </widget>
+                                      <packing>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label9">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Where would you like it installed?&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkFrame" id="frame3">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkAlignment" id="alignment3">
+                        <property name="visible">True</property>
+                        <property name="top_padding">3</property>
+                        <property name="left_padding">18</property>
+                        <child>
+                          <widget class="GtkVBox" id="vbox5">
+                            <property name="visible">True</property>
+                            <child>
+                              <widget class="GtkCheckButton" id="checkbutton_shortcuts">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="label" translatable="yes">Create menu shortcuts</property>
+                                <property name="use_underline">True</property>
+                                <property name="response_id">0</property>
+                                <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="select_shortcuts"/>
+                              </widget>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                              </packing>
+                            </child>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label10">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Install options&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Options</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="position">1</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVBox" id="vbox6">
+                <property name="visible">True</property>
+                <property name="border_width">6</property>
+                <child>
+                  <widget class="GtkVBox" id="vbox7">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkProgressBar" id="progressbar_install">
+                        <property name="visible">True</property>
+                        <property name="pulse_step">0.10000000149</property>
+                      </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label_install">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Working...</property>
+                      </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Install</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="position">2</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVBox" id="vbox8">
+                <property name="visible">True</property>
+                <child>
+                  <widget class="GtkLabel" id="label12">
+                    <property name="visible">True</property>
+                    <property name="xpad">6</property>
+                    <property name="ypad">6</property>
+                    <property name="label" translatable="yes">&lt;big&gt;&lt;big&gt;Congratulations, you how now installed Reaper on Linux!&lt;/big&gt;&lt;/big&gt;</property>
+                    <property name="use_markup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkLabel" id="label13">
+                    <property name="visible">True</property>
+                    <property name="xpad">12</property>
+                    <property name="ypad">6</property>
+                    <property name="label" translatable="yes">If you selected to install menu shortcuts, you will find Reaper
+in the Sound and Video category.
+
+If you selected not to install menu shortcuts, you can launch
+Reaper from the installation directory using "reaper.sh".
+
+
+Thank you for using this installer, please report any
+issues you might have encountered either on the Reaper forums or directly to &amp;lt;cybolic@gmail.com&amp;gt;.</property>
+                    <property name="use_markup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label7">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Done</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="position">3</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHButtonBox" id="hbuttonbox1">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkButton" id="button_cancel">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label">gtk-cancel</property>
+                <property name="use_stock">True</property>
+                <property name="response_id">0</property>
+                <signal name="clicked" handler="_exit"/>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkButton" id="button_next">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label">gtk-go-forward</property>
+                <property name="use_stock">True</property>
+                <property name="response_id">0</property>
+                <signal name="clicked" handler="next"/>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/x-reaper-project">
+		<comment xml:lang="en">Reaper project</comment>
+		<magic priority="50">
+			<match type="string" value="&lt;REAPER_PROJECT " offset="0"/>
+		</magic>
+		<glob pattern="*.rpp"/>
+	</mime-type>
+	<mime-type type="application/x-reaper-project-backup">
+		<comment xml:lang="en">Reaper project backup</comment>
+		<magic priority="50">
+			<match type="string" value="&lt;REAPER_PROJECT " offset="0"/>
+		</magic>
+		<glob pattern="*.rpp-bak"/>
+	</mime-type>
+
+	<mime-type type="application/x-reaper-peakfile">
+		<comment xml:lang="en">Reaper peak file</comment>
+		<magic priority="50">
+			<match type="string" value="RPKN" offset="0"/>
+		</magic>
+		<glob pattern="*.reapeaks"/>
+	</mime-type>
+</mime-info>

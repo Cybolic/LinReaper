@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--Generated with glade3 3.4.5 on Tue Jan  6 03:14:51 2009 -->
+<glade-interface>
+  <widget class="GtkWindow" id="window">
+    <property name="visible">True</property>
+    <property name="border_width">12</property>
+    <property name="title" translatable="yes">LinReaper Options</property>
+    <property name="resizable">False</property>
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <property name="icon_name">reaper</property>
+    <signal name="destroy" handler="_exit"/>
+    <child>
+      <widget class="GtkVBox" id="vbox4">
+        <property name="visible">True</property>
+        <property name="spacing">12</property>
+        <child>
+          <widget class="GtkNotebook" id="notebook2">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <child>
+              <widget class="GtkVBox" id="vbox14">
+                <property name="visible">True</property>
+                <property name="border_width">12</property>
+                <property name="spacing">12</property>
+                <child>
+                  <widget class="GtkFrame" id="frame2">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkHBox" id="hbox14">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkImage" id="image12">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="yalign">0</property>
+                            <property name="ypad">6</property>
+                            <property name="icon_size">6</property>
+                            <property name="pixel_size">48</property>
+                            <property name="icon_name">reaper</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkAlignment" id="alignment12">
+                            <property name="visible">True</property>
+                            <property name="border_width">6</property>
+                            <property name="top_padding">6</property>
+                            <property name="left_padding">6</property>
+                            <child>
+                              <widget class="GtkVBox" id="vbox15">
+                                <property name="visible">True</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <widget class="GtkLabel" id="label22">
+                                    <property name="visible">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Render a Reaper project:</property>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="GtkAlignment" id="alignment13">
+                                    <property name="visible">True</property>
+                                    <property name="left_padding">12</property>
+                                    <child>
+                                      <widget class="GtkHBox" id="hbox16">
+                                        <property name="visible">True</property>
+                                        <child>
+                                          <widget class="GtkFileChooserButton" id="filechooserbutton_render">
+                                            <property name="visible">True</property>
+                                            <signal name="selection_changed" handler="render_selection_changed"/>
+                                          </widget>
+                                        </child>
+                                        <child>
+                                          <widget class="GtkButton" id="button_reaper_render">
+                                            <property name="visible">True</property>
+                                            <property name="sensitive">False</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                            <property name="label" translatable="yes">gtk-execute</property>
+                                            <property name="use_stock">True</property>
+                                            <property name="response_id">0</property>
+                                            <signal name="clicked" handler="open_reaper_render"/>
+                                          </widget>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label25">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Reaper Functions&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkFrame" id="frame1">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkHBox" id="hbox11">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkImage" id="image10">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="yalign">0</property>
+                            <property name="ypad">6</property>
+                            <property name="stock">gtk-preferences</property>
+                            <property name="icon_size">6</property>
+                            <property name="pixel_size">48</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkAlignment" id="alignment1">
+                            <property name="visible">True</property>
+                            <property name="border_width">6</property>
+                            <property name="top_padding">6</property>
+                            <property name="left_padding">6</property>
+                            <child>
+                              <widget class="GtkVBox" id="vbox3">
+                                <property name="visible">True</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <widget class="GtkButton" id="button_reaper_audio">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="response_id">0</property>
+                                    <signal name="clicked" handler="open_reaper_audio"/>
+                                    <child>
+                                      <widget class="GtkHBox" id="hbox12">
+                                        <property name="visible">True</property>
+                                        <property name="spacing">6</property>
+                                        <child>
+                                          <widget class="GtkImage" id="image11">
+                                            <property name="visible">True</property>
+                                            <property name="stock">gtk-preferences</property>
+                                          </widget>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <widget class="GtkLabel" id="label3">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">Open Reaper's audio settings dialog</property>
+                                          </widget>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="GtkVBox" id="vbox7">
+                                    <property name="visible">True</property>
+                                    <child>
+                                      <widget class="GtkLabel" id="label5">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Open Reaper with the following configuration file:</property>
+                                      </widget>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkAlignment" id="alignment11">
+                                        <property name="visible">True</property>
+                                        <property name="left_padding">12</property>
+                                        <child>
+                                          <widget class="GtkHBox" id="hbox13">
+                                            <property name="visible">True</property>
+                                            <child>
+                                              <widget class="GtkFileChooserButton" id="filechooserbutton_conf">
+                                                <property name="visible">True</property>
+                                                <signal name="selection_changed" handler="conf_selection_changed"/>
+                                              </widget>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkButton" id="button_reaper_conf">
+                                                <property name="visible">True</property>
+                                                <property name="sensitive">False</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">True</property>
+                                                <property name="label" translatable="yes">gtk-execute</property>
+                                                <property name="use_stock">True</property>
+                                                <property name="response_id">0</property>
+                                                <signal name="clicked" handler="open_reaper_conf"/>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label1">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Configuration Options&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label7">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">General</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="position">2</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVBox" id="vbox5">
+                <property name="visible">True</property>
+                <property name="border_width">12</property>
+                <property name="spacing">12</property>
+                <child>
+                  <widget class="GtkFrame" id="frame3">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkHBox" id="hbox1">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkImage" id="image1">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="yalign">0</property>
+                            <property name="ypad">6</property>
+                            <property name="pixbuf">.vst.svg</property>
+                            <property name="icon_size">5</property>
+                            <property name="pixel_size">48</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkAlignment" id="alignment3">
+                            <property name="visible">True</property>
+                            <property name="border_width">6</property>
+                            <property name="top_padding">6</property>
+                            <property name="left_padding">6</property>
+                            <child>
+                              <widget class="GtkVBox" id="vbox5">
+                                <property name="visible">True</property>
+                                <property name="spacing">12</property>
+                                <child>
+                                  <widget class="GtkVBox" id="vbox_win_install">
+                                    <property name="visible">True</property>
+                                    <property name="spacing">6</property>
+                                    <signal name="drag_motion" handler="motion_cb"/>
+                                    <signal name="drag_drop" handler="drop_cb"/>
+                                    <signal name="drag_data_received" handler="data_received"/>
+                                    <child>
+                                      <widget class="GtkLabel" id="label9">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Install a new plugin using a Windows installer:</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkAlignment" id="alignment4">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="left_padding">12</property>
+                                        <child>
+                                          <widget class="GtkVBox" id="vbox6">
+                                            <property name="visible">True</property>
+                                            <property name="spacing">6</property>
+                                            <child>
+                                              <widget class="GtkHBox" id="hbox4">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                  <widget class="GtkFileChooserButton" id="filechooserbutton_win_install">
+                                                    <property name="visible">True</property>
+                                                    <signal name="selection_changed" handler="filechooser_selected"/>
+                                                  </widget>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkButton" id="button_run">
+                                                    <property name="visible">True</property>
+                                                    <property name="sensitive">False</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="receives_default">True</property>
+                                                    <property name="label" translatable="yes">gtk-execute</property>
+                                                    <property name="use_stock">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <signal name="clicked" handler="run_installer"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="GtkVBox" id="vbox8">
+                                    <property name="visible">True</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <widget class="GtkLabel" id="label10">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Manage the plugins directly:</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkAlignment" id="alignment5">
+                                        <property name="visible">True</property>
+                                        <property name="left_padding">12</property>
+                                        <child>
+                                          <widget class="GtkVBox" id="vbox1">
+                                            <property name="visible">True</property>
+                                            <property name="spacing">6</property>
+                                            <child>
+                                              <widget class="GtkButton" id="button5">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">True</property>
+                                                <property name="response_id">0</property>
+                                                <signal name="clicked" handler="open_vst"/>
+                                                <child>
+                                                  <widget class="GtkHBox" id="hbox5">
+                                                    <property name="visible">True</property>
+                                                    <property name="spacing">6</property>
+                                                    <child>
+                                                      <widget class="GtkImage" id="image4">
+                                                        <property name="visible">True</property>
+                                                        <property name="stock">gtk-directory</property>
+                                                      </widget>
+                                                      <packing>
+                                                        <property name="expand">False</property>
+                                                        <property name="fill">False</property>
+                                                      </packing>
+                                                    </child>
+                                                    <child>
+                                                      <widget class="GtkLabel" id="label13">
+                                                        <property name="visible">True</property>
+                                                        <property name="label" translatable="yes">Open VST folder</property>
+                                                      </widget>
+                                                      <packing>
+                                                        <property name="expand">False</property>
+                                                        <property name="fill">False</property>
+                                                        <property name="position">1</property>
+                                                      </packing>
+                                                    </child>
+                                                  </widget>
+                                                </child>
+                                              </widget>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkHBox" id="hbox3">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                  <widget class="GtkImage" id="image3">
+                                                    <property name="visible">True</property>
+                                                    <property name="yalign">0</property>
+                                                    <property name="stock">gtk-dialog-info</property>
+                                                    <property name="icon_size">5</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkLabel" id="label11">
+                                                    <property name="visible">True</property>
+                                                    <property name="xalign">0</property>
+                                                    <property name="label" translatable="yes">Remember that you can create a symbolic link inside
+LinReaper's VST folder to any existing VST collection 
+to have Reaper automatically recognise it.</property>
+                                                    <property name="wrap">True</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label12">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;VST Plugins&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkFrame" id="frame5">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkHBox" id="hbox8">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkImage" id="image7">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="yalign">0</property>
+                            <property name="ypad">6</property>
+                            <property name="pixbuf">.js.svg</property>
+                            <property name="icon_size">5</property>
+                            <property name="pixel_size">48</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkAlignment" id="alignment9">
+                            <property name="visible">True</property>
+                            <property name="border_width">6</property>
+                            <property name="top_padding">6</property>
+                            <property name="left_padding">6</property>
+                            <child>
+                              <widget class="GtkVBox" id="vbox12">
+                                <property name="visible">True</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <widget class="GtkLabel" id="label19">
+                                    <property name="visible">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Manage the plugins directly:</property>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="GtkAlignment" id="alignment10">
+                                    <property name="visible">True</property>
+                                    <property name="left_padding">12</property>
+                                    <child>
+                                      <widget class="GtkButton" id="button8">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="response_id">0</property>
+                                        <signal name="clicked" handler="open_js"/>
+                                        <child>
+                                          <widget class="GtkHBox" id="hbox9">
+                                            <property name="visible">True</property>
+                                            <property name="spacing">6</property>
+                                            <child>
+                                              <widget class="GtkImage" id="image8">
+                                                <property name="visible">True</property>
+                                                <property name="stock">gtk-directory</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkLabel" id="label20">
+                                                <property name="visible">True</property>
+                                                <property name="label" translatable="yes">Open JS folder</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label8">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;JS Plugins&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Plugins</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="position">1</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVBox" id="vbox9">
+                <property name="visible">True</property>
+                <property name="border_width">12</property>
+                <child>
+                  <widget class="GtkFrame" id="frame4">
+                    <property name="visible">True</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">GTK_SHADOW_NONE</property>
+                    <child>
+                      <widget class="GtkHBox" id="hbox2">
+                        <property name="visible">True</property>
+                        <child>
+                          <widget class="GtkImage" id="image2">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="yalign">0</property>
+                            <property name="ypad">6</property>
+                            <property name="icon_size">6</property>
+                            <property name="pixel_size">48</property>
+                            <property name="icon_name">wine</property>
+                          </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkAlignment" id="alignment6">
+                            <property name="visible">True</property>
+                            <property name="border_width">6</property>
+                            <property name="top_padding">6</property>
+                            <property name="left_padding">6</property>
+                            <child>
+                              <widget class="GtkVBox" id="vbox10">
+                                <property name="visible">True</property>
+                                <property name="spacing">12</property>
+                                <child>
+                                  <widget class="GtkVBox" id="vbox10">
+                                    <property name="visible">True</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <widget class="GtkLabel" id="label14">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Configure the LinReaper Wine configuration:</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkAlignment" id="alignment7">
+                                        <property name="visible">True</property>
+                                        <property name="left_padding">12</property>
+                                        <child>
+                                          <widget class="GtkVBox" id="vbox13">
+                                            <property name="visible">True</property>
+                                            <property name="spacing">6</property>
+                                            <child>
+                                              <widget class="GtkButton" id="button6">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">True</property>
+                                                <property name="response_id">0</property>
+                                                <signal name="clicked" handler="open_winecfg"/>
+                                                <child>
+                                                  <widget class="GtkHBox" id="hbox6">
+                                                    <property name="visible">True</property>
+                                                    <property name="spacing">6</property>
+                                                    <child>
+                                                      <widget class="GtkImage" id="image5">
+                                                        <property name="visible">True</property>
+                                                        <property name="icon_name">wine-winecfg</property>
+                                                      </widget>
+                                                      <packing>
+                                                        <property name="expand">False</property>
+                                                        <property name="fill">False</property>
+                                                      </packing>
+                                                    </child>
+                                                    <child>
+                                                      <widget class="GtkLabel" id="label15">
+                                                        <property name="visible">True</property>
+                                                        <property name="label" translatable="yes">Open WineCfg</property>
+                                                      </widget>
+                                                      <packing>
+                                                        <property name="expand">False</property>
+                                                        <property name="fill">False</property>
+                                                        <property name="position">1</property>
+                                                      </packing>
+                                                    </child>
+                                                  </widget>
+                                                </child>
+                                              </widget>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkHBox" id="hbox10">
+                                                <property name="visible">True</property>
+                                                <property name="spacing">6</property>
+                                                <child>
+                                                  <widget class="GtkImage" id="image9">
+                                                    <property name="visible">True</property>
+                                                    <property name="yalign">0</property>
+                                                    <property name="stock">gtk-dialog-info</property>
+                                                    <property name="icon_size">5</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkLabel" id="label21">
+                                                    <property name="visible">True</property>
+                                                    <property name="xalign">0</property>
+                                                    <property name="label" translatable="yes">When using Reaper with WineAsio and Jack, the only
+audio driver selected in WineCfg should be ALSA.</property>
+                                                    <property name="wrap">True</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="GtkVBox" id="vbox11">
+                                    <property name="visible">True</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <widget class="GtkLabel" id="label16">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Edit the LinReaper registration database:</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkAlignment" id="alignment8">
+                                        <property name="visible">True</property>
+                                        <property name="left_padding">12</property>
+                                        <child>
+                                          <widget class="GtkButton" id="button7">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                            <property name="response_id">0</property>
+                                            <signal name="clicked" handler="open_regedit"/>
+                                            <child>
+                                              <widget class="GtkHBox" id="hbox7">
+                                                <property name="visible">True</property>
+                                                <property name="spacing">6</property>
+                                                <child>
+                                                  <widget class="GtkImage" id="image6">
+                                                    <property name="visible">True</property>
+                                                    <property name="stock">gtk-properties</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkLabel" id="label17">
+                                                    <property name="visible">True</property>
+                                                    <property name="label" translatable="yes">Open RegEdit</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label18">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Wine Configuration&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">label_item</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label6">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Advanced</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="position">2</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+          </widget>
+        </child>
+        <child>
+          <widget class="GtkHButtonBox" id="hbuttonbox2">
+            <property name="visible">True</property>
+            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <child>
+              <widget class="GtkButton" id="button3">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="label" translatable="yes">gtk-close</property>
+                <property name="use_stock">True</property>
+                <property name="response_id">0</property>
+                <signal name="clicked" handler="_exit"/>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

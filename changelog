@@ -1,0 +1,83 @@
+0.82
+----
+ * New:     The LinReaper VSTTool has been replaced by a new multi-tool.
+            The new tool is available from the menu as
+            "LinReaper Options".
+            From there you can manage both your VST and JS effects,
+            run Reaper with the options normally installed as extra
+            menu shortcuts on Windows and configure and manage LinReapers
+            Wine installation.
+  * Fixed:  Running Reaper from commandline with filenames containing
+            spaces now works.
+
+0.81
+----
+ * New:     If DLL registration of WineAsio fails locally, LinReaper will
+            give the option to install WineAsio to /usr/lib/wine instead.
+
+0.80
+----
+ * Changed: Cleaned up the config dir and Wine setup handling a lot.
+ * New:     LinReaper will now link the Wine dirs Desktop, My Documents
+            My Pictures and My Videos to either similar named dirs in
+            the users home dir, the XDG USER DIR settings or simply
+            to the users home dir if none of the above exists.
+ * New:     The config dir is now named the same as the installation
+            directory. This means that you can install several versions
+            of Reaper, each with their own config, as long as you name
+            the install dirs differently.
+ * New:     You can now give a reaper install exe as an argument to
+            LinReaper.
+
+0.72
+----
+ * New:     A new tool called LinReaper VST Tool is now included!
+            Its function is to aid in installing and maintaining Windows
+            VSTs in your Reaper installation.
+ * Changed: Reaper is now configured to use $HOME/.config/reaper/vst and 
+            /usr/lib/vstwin32 as the default paths for Windows VSTs.
+            $HOME/.vst still works, but really should be used for native
+            Linux VSTs.
+
+0.70
+----
+ * New:     LinReaper now has much better error handling.
+ * Fixed:   If extraction from exe fails, LinReaper now runs the installer.
+
+0.69
+----
+ * Fixed:   The launcher scripts now actually launches Reaper. My terrible
+            blunder was once again caught by Rick Stone.
+
+0.68
+----
+ * Fixed:   Not all installations have a $HOME/.local/share - LinReaper will
+            now create it if missing. Once again, thanks to Rick Stone.
+
+0.67
+----
+ * Fixed:   The installer now again actually works on other systems than
+            my own, thanks to Rick Stone on the Reaper forum.
+
+0.66
+----
+ * New:     LinReaper now uses the Wine registry to locate Windows paths.
+            This ensures that LinReaper will work on different locales.
+ * Fixed:   The latest version of Reaper was no longer selected in the list.
+
+0.652
+-----
+ * Fixed:   LinReaper now correcly lets one install from local install when no
+            internet connection is found
+
+0.65
+----
+ * New:     Unbuffered display update is now in the default REAPER.ini
+            configuration (meaning faster graphics)
+ * New:     Link Windows Desktop in Reaper to Linux Desktop
+ * New:     Added option to install from a local Reaper install exe, instead of
+            download
+
+0,64
+----
+ * Fixed:   7Zip detection no longer fails
