@@ -1,5 +1,17 @@
 #!/bin/bash
 
+
+# Function to get a value from the system registry and convert it to a UNIX path
+pathfromreg() {
+	# Grep for value key, pick last one and strip the key part of the line
+	WinPath="$(grep "\"$1\"=" ~/.wine/system.reg | tail -n1 | cut -d= -f2-)"
+	# Remove quotes, if any
+	test "${WinPath:0:1}" = '"' && WinPath="$(echo ${WinPath:1:${#WinPath}-2})"
+	# Convert to UNIX path
+	winepath -u "$WinPath"
+}
+
+
 # Convert relative to absolute paths
 tempdir="$(cd "`dirname "$0"`"; pwd)"
 if [ -z "$2" ]; then
@@ -49,15 +61,11 @@ while [ ! -f "$appdir/.wine/system.reg" ]; do
 done
 echo " Done."
 
-# Function to get a value from the system registry and convert it to a UNIX path
-pathfromreg() {
-	WinPath="$(less "$appdir/.wine/system.reg" | grep "\"$1\"=" | cut -d= -f2-)"
-	test "${WinPath:0:1}" = '"' && WinPath="$(echo ${WinPath:1:${#WinPath}-2})"
-	winepath -u "$WinPath"
-}
 
 # Get the Windows paths from registry since they are different according to locale
 ProgramFiles="$(pathfromreg "ProgramFiles")"
+# If ProgramFiles isn't set, try ProgramFilesDir
+test -z $ProgramFiles && ProgramFiles="$(pathfromreg "ProgramFilesDir")"
 winsysdir="$(pathfromreg "winsysdir")"
 APPDATA="$(pathfromreg "APPDATA")"
 PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
