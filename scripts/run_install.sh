@@ -3,11 +3,16 @@
 
 # Function to get a value from the system registry and convert it to a UNIX path
 pathfromreg() {
-	# Grep for value key, pick last one and strip the key part of the line
-	WinPath="$(grep "\"$1\"=" ~/.wine/system.reg | tail -n1 | cut -d= -f2-)"
+	# Grep for value key, pick first or last one and strip the key part of the line
+	if [ -z "$2" ]; then
+		WinPath="$(grep "\"$1\"=" ~/.wine/system.reg | tail -n1 | cut -d= -f2-)"
+	else
+		WinPath="$(grep "\"$1\"=" ~/.wine/system.reg | head -n1 | cut -d= -f2-)"
+	fi
 	# Remove quotes, if any
 	test "${WinPath:0:1}" = '"' && WinPath="$(echo ${WinPath:1:${#WinPath}-2})"
 	# Convert to UNIX path
+	#echo "$WinPath"
 	winepath -u "$WinPath"
 }
 
@@ -51,11 +56,18 @@ export WINEDLLPATH
 WINEPREFIX="$appdir/.wine"
 export WINEPREFIX
 
-echo "Creating Wine directory"
-#env HOME="$appdir" wineprefixcreate
-env HOME="$appdir" regedit /E /tmp/.linreaper_prefix_created 'HKEY_CURRENT_USER\Software\Wine'
+if [ ! -d "$WINEPREFIX" ]; then
+	echo "Creating Wine directory"
+else
+	echo "Updating Wine directory"
+fi
+env HOME="$appdir" regedit /E /tmp/.linreaper_prefix_created 'HKEY_CURRENT_USER\Software\Wine' &> /tmp/.linreaper_wine_output
 
-echo -n "Waiting for registry files to be created..."
+if [ ! -d "$WINEPREFIX" ]; then
+	echo -n "Waiting for registry files to be created..."
+else
+	echo -n "Waiting for registry files to be updated..."
+fi
 while [ ! -f "$appdir/.wine/system.reg" ]; do
 	sleep 0
 done
@@ -65,19 +77,22 @@ echo " Done."
 # Get the Windows paths from registry since they are different according to locale
 ProgramFiles="$(pathfromreg "ProgramFiles")"
 # If ProgramFiles isn't set, try ProgramFilesDir
-test -z $ProgramFiles && ProgramFiles="$(pathfromreg "ProgramFilesDir")"
+test -z "$ProgramFiles" && ProgramFiles="$(pathfromreg "ProgramFilesDir")"
 winsysdir="$(pathfromreg "winsysdir")"
 APPDATA="$(pathfromreg "APPDATA")"
+test -z "$APPDATA" && APPDATA="$(pathfromreg 'Common AppData')"
+# If the APPDATA we got is a reference to another definition, try to get that other definition
+test "${APPDATA:0:3}" = 'str' && APPDATA="$(pathfromreg 'Common AppData' first)"
 PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
 USERPROFILE="$PROFILESDIR/$USER"
 
 # Debug stuff
-#echo $ProgramFiles
-#echo $winsysdir
-#echo $APPDATA
-#echo $PROFILESDIR
-#echo $USERPROFILE
-#exit
+# echo "ProgramFiles: '$ProgramFiles'"
+# echo "winsysdir: '$winsysdir'"
+# echo "APPDATA: '$APPDATA'"
+# echo "PROFILESDIR: '$PROFILESDIR'"
+# echo "USERPROFILE: '$USERPROFILE'"
+# exit 0
 
 runinstall=1
 # If 7zip is installed, bypass the installer and install Reaper ourselves
