@@ -11,9 +11,15 @@ pathfromreg() {
 	fi
 	# Remove quotes, if any
 	test "${WinPath:0:1}" = '"' && WinPath="$(echo ${WinPath:1:${#WinPath}-2})"
-	# Convert to UNIX path
-	#echo "$WinPath"
-	winepath -u "$WinPath"
+
+	# Check for likely variable reference, look for first occurance instead if so
+	if test "${WinPath:0:3}" = 'str'; then
+		echo "$(pathfromreg "$1" first)"
+	else
+		# Convert to UNIX path
+		# echo "$WinPath"
+		winepath -u "$WinPath"
+	fi
 }
 
 
@@ -81,8 +87,6 @@ test -z "$ProgramFiles" && ProgramFiles="$(pathfromreg "ProgramFilesDir")"
 winsysdir="$(pathfromreg "winsysdir")"
 APPDATA="$(pathfromreg "APPDATA")"
 test -z "$APPDATA" && APPDATA="$(pathfromreg 'Common AppData')"
-# If the APPDATA we got is a reference to another definition, try to get that other definition
-test "${APPDATA:0:3}" = 'str' && APPDATA="$(pathfromreg 'Common AppData' first)"
 PROFILESDIR="$(dirname "`dirname "$APPDATA"`")"
 USERPROFILE="$PROFILESDIR/$USER"
 
