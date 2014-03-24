@@ -196,6 +196,7 @@ Cheers,
                                     <property name="action">select-folder</property>
                                     <property name="title" translatable="yes">Select where the "reaper" directory should be created</property>
                                     <signal name="current_folder_changed" handler="select_local_path"/>
+                                    <signal name="selection-changed"  handler="select_local_path"/>
                                   </widget>
                                   <packing>
                                     <property name="fill">False</property>

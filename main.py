@@ -7,42 +7,43 @@ class Main:
 	def _exit(self, *args):
 		gtk.main_quit()
 		exit()
-	
+
 	def __init__(self):
 		self.default_installpath_global = "/usr/local/reaper"
-		self.default_installpath_local = os.environ['HOME']+"/.local"
-		
+		self.default_installpath_local = os.environ['HOME'] + "/.local"
+		self.installpath_dir = self.default_installpath_local
+
 		self.reaperfilelocal = None
 		self.option_install_local = True
-		
+
 		self.option_shortcuts = True
 		self.option_wineasio = True
-		
+
 		self.errorlog = ""
-		
+
 		self.widgets = CreateWidgets(self)
 		icons = map(lambda i: gtk.gdk.pixbuf_new_from_file("./scripts/gnome/"+str(i)+"x"+str(i)+"/apps/reaper.png"), [16,32,48,96,128,256])
 		self.widgets['window'].set_icon_list(*icons)
 		self.widgets['image-icon'].set_from_pixbuf(icons[1])
-		
+
 		# Select the home folder as the base for choosing the Reaper installer
 		self.widgets['filechooserbutton-installer'].set_current_folder(os.environ['HOME'])
 		# Select the option to install locally
 		self.widgets['filechooserbutton-path'].set_current_folder(self.default_installpath_local)
-		
+
 		if len(sys.argv) > 1:
 			self.reaperfilelocal = os.path.abspath(sys.argv[1])
 			self.widgets['filechooserbutton-installer'].set_filename(self.reaperfilelocal)
 			self.widgets['radiobutton-installer-file'].set_active(True)
 			self.select_local_installer(True)
-		
+
 		# Set the default install options
 		self.widgets['checkbutton_shortcuts'].set_active(self.option_shortcuts)
 		### Deprecated ###
 		#self.widgets['checkbutton_wineasio'].set_active(self.option_wineasio)
-		
+
 		self.widgets['progressbar_install'].set_pulse_step(0.01)
-	
+
 	def select_version(self, treeview):
 		# If we were called from inside the program, assume that the first row was selected
 		if treeview.get_selection().get_selected()[1] == None:
@@ -50,13 +51,13 @@ class Main:
 		else:
 			selected = treeview.get_model().get_path(treeview.get_selection().get_selected()[1])[0]
 			self.selected_version = self.versions[selected]
-	
+
 	def select_local_installer(self, button):
 		if type(button) == type(True):
 			self.local_installer = button
 		else:
 			self.local_installer = button.get_active()
-		
+
 		if self.local_installer:
 			self.widgets['filechooserbutton-installer'].set_sensitive(True)
 			self.widgets['button_next'].set_sensitive(False)
@@ -67,15 +68,15 @@ class Main:
 		else:
 			self.widgets['filechooserbutton-installer'].set_sensitive(False)
 			self.widgets['button_next'].set_sensitive(True)
-	
+
 	def set_local_installer(self, filechooser):
 		filenames = filechooser.get_filenames()
 		if len(filenames):
-			self.reaperfilelocal = filechooser.get_filenames()[0]
+			self.reaperfilelocal = filenames[0]
 			self.widgets['button_next'].set_sensitive(True)
 		else:
 			self.widgets['button_next'].set_sensitive(False)
-	
+
 	def select_installation_path(self, button):
 		# If globally
 		if button.get_active():
@@ -83,21 +84,27 @@ class Main:
 			self.widgets['filechooserbutton-installer'].set_sensitive(False)
 		else:
 			self.widgets['filechooserbutton-installer'].set_sensitive(True)
-			self.installpath = (self.widgets['filechooserbutton-installer'].get_filename() or self.default_installpath_local) + '/' + ( self.widgets['entry_install_local'].get_text() or "reaper")
-	
+			self.update_installpath()
+
 	def select_local_path(self, filechooser):
-		self.installpath = filechooser.get_current_folder() + '/' + self.widgets['entry_install_local'].get_text()
-	
+		filenames = filechooser.get_filenames()
+		if len(filenames):
+			self.installpath_dir = filenames[0]
+			self.update_installpath()
+
+	def update_installpath(self):
+		self.installpath = self.installpath_dir + '/' + ( self.widgets['entry_install_local'].get_text() or "reaper")
+
 	def change_installation_path(self, entry):
-		self.installpath = self.widgets['filechooserbutton-installer'].get_filename() + '/' + entry.get_text()
-	
+		self.update_installpath()
+
 	def select_shortcuts(self, button):
 		self.option_shortcuts = button.get_active()
-	
+
 	def select_wineasio(self, button):
 		self.option_wineasio = button.get_active()
-	
-	
+
+
 	def next(self, button):
 		self.widgets['notebook'].next_page()
 		if self.widgets['notebook'].get_current_page() == 1:
@@ -110,11 +117,11 @@ class Main:
 		elif self.widgets['notebook'].get_current_page() == 2:
 			do_install()
 
-def do_install():	
+def do_install():
 	main.rundir = os.path.dirname(os.path.abspath(sys.argv[0]))
-	
+
 	main.widgets['button_next'].set_sensitive(False)
-	
+
 	# If set to use local installer
 	#if main.widgets['check_local_installer'].get_active() is True:
 	if main.local_installer is True:
@@ -170,7 +177,7 @@ def do_error():
 	main.widgets['button_next'].set_sensitive(True)
 	main.widgets['button_next'].set_label("Quit")
 	main.widgets['button_next'].connect("clicked", main._exit)
-	
+
 def run(command, arguments, finished_function, error_function):
 	#print command, arguments, finished_function, error_function
 	#return
@@ -181,7 +188,7 @@ def run_process(command, arguments, finished_function, error_function):
 	#print "Running command:",command
 	p = subprocess.Popen(command + ' ' + ' '.join(arguments), shell=True,
           stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, close_fds=True)
-	
+
 	output = ""
 	while p.poll() == None:
 		line = os.read(p.stdout.fileno(), 32)
@@ -203,9 +210,9 @@ def run_process(command, arguments, finished_function, error_function):
 			main.widgets['progressbar_install'].pulse()
 			gtk.gdk.threads_leave()
 		sys.stdout.write(line)
-	
+
 	main.errorlog += output
-	
+
 	if p.returncode != 0:
 		error_function()
 	else:
@@ -229,11 +236,11 @@ def get_version_urls():
 	# Get the HTML listing of the available Reaper versions
 	reaperlisting = urllib.urlopen(baseurl)
 	reaperlisting = "\n".join( reaperlisting.readlines() )
-	
+
 	# Split the HTML so it only contains the table rows with the files
 	try:
 		reaperlisting = filter(len, reaperlisting.split('<hr></th></tr>')[1].split("\n")[:-2])
-	
+
 		# Filter through the table rows, extracting the data we need
 		versions = {}
 		for row in reaperlisting[1:]:
