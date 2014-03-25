@@ -5,9 +5,9 @@
 pathfromreg() {
 	# Grep for value key, pick first or last one and strip the key part of the line
 	if [ -z "$2" ]; then
-		WinPath="$(grep "\"$1\"=" ~/.wine/system.reg | tail -n1 | cut -d= -f2-)"
+		WinPath="$(grep "\"$1\"=" "$appdir/.wine/system.reg" | tail -n1 | cut -d= -f2-)"
 	else
-		WinPath="$(grep "\"$1\"=" ~/.wine/system.reg | head -n1 | cut -d= -f2-)"
+		WinPath="$(grep "\"$1\"=" "$appdir/.wine/system.reg" | head -n1 | cut -d= -f2-)"
 	fi
 	# Remove quotes, if any
 	test "${WinPath:0:1}" = '"' && WinPath="$(echo ${WinPath:1:${#WinPath}-2})"
