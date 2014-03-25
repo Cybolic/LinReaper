@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source "$(dirname "$(readlink -f "$0")")"/_functions.sh
+
 # Convert relative to absolute paths
 appdir="$(cd "$1"; pwd)"
 
@@ -7,16 +9,14 @@ WINEPREFIX="$appdir/.wine"
 export WINEPREFIX
 
 # Get the Windows paths from registry since they are different according to locale
-eval ProgramFiles="$(less "$appdir/.wine/system.reg" | grep '"ProgramFiles"=' | cut -d= -f2-)"
-ProgramFiles="$(winepath -u "$ProgramFiles")"
-eval APPDATA="$(less "$appdir/.wine/system.reg" | grep '"APPDATA"=' | cut -d= -f2-)"
-APPDATA="$(winepath -u "$APPDATA")"
+ProgramFiles="$(getProgramFiles)"
+APPDATA="$(getAppData)"
 
 if [ -d "$appdir/.wine" ]; then
-	
+
 	configpath="$APPDATA/REAPER"
 	programpath="$ProgramFiles/REAPER"
-	
+
 	echo "Setting up Reaper installation directory."
 	# if $appdir/reaper doesn't exist
 	if [ ! -e "$appdir/reaper" ]; then
