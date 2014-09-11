@@ -3,7 +3,7 @@
 source "$(dirname "$(readlink -f "$0")")"/_functions.sh
 
 # Convert relative to absolute paths
-tempdir="$(cd "`dirname "$0"`"; pwd)"
+tempdir="$(cd "$(dirname "$0")"; pwd)"
 if [ -z "$2" ]; then
 	installexe="/tmp/linreaper-reaper-install.exe"
 else
