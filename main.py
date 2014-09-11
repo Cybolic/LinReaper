@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # -*- coding: utf-8 -*-
 
 import os, gtk, gobject, gtk.glade, subprocess, sys, threading, urllib, time, locale, re
