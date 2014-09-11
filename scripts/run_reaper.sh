@@ -34,9 +34,9 @@ fi
 export LD_LIBRARY_PATH
 
 if [ -n "$WINEDLLPATH" ]; then
-	WINEDLLPATH="$appdir/.winelib:$appdir/.winelib:$WINEDLLPATH"
+	WINEDLLPATH="$appdir/.winelib:$WINEDLLPATH"
 else
-	WINEDLLPATH="$appdir/.winelib:$appdir/.winelib"
+	WINEDLLPATH="$appdir/.winelib"
 fi
 export WINEDLLPATH
 
