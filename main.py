@@ -192,18 +192,25 @@ def run_process(command, arguments, finished_function, error_function):
 	output = ""
 	while p.poll() == None:
 		line = os.read(p.stdout.fileno(), 32)
-		procent = None
+		percent = None
 		if line:
 			output += line
 			lastline = output.split("\n")[-1].strip()
 			if lastline and '%' in lastline:
+
 				if len(lastline.split('%')) > 2:
-					procent = lastline.split('%')[-2].split()[-1]
+					percent = lastline.split('%')[-2].split()[-1]
 				else:
-					procent = lastline.split('%')[0].split()[0]
-		if procent:
+					percent = lastline.split('%')[0].split()[0]
+
+				try:
+					percent = float(percent) / 100
+				except:
+					percent = None
+
+		if percent:
 			gtk.gdk.threads_enter()
-			main.widgets['progressbar_install'].set_fraction( float(procent) / 100 )
+			main.widgets['progressbar_install'].set_fraction(percent)
 			gtk.gdk.threads_leave()
 		else:
 			gtk.gdk.threads_enter()
